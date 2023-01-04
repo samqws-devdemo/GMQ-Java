@@ -23,6 +23,7 @@
 package org.owasp.webgoat.sql_injection.advanced;
 
 import lombok.extern.slf4j.Slf4j;
+import java.sql.PreparedStatement;
 import org.owasp.webgoat.assignments.AssignmentEndpoint;
 import org.owasp.webgoat.assignments.AssignmentHints;
 import org.owasp.webgoat.assignments.AttackResult;
@@ -60,9 +61,10 @@ public class SqlInjectionChallenge extends AssignmentEndpoint {
 
 
             try (Connection connection = dataSource.getConnection()) {
-                String checkUserQuery = "select userid from sql_challenge_users where userid = '" + username_reg + "'";
-                Statement statement = connection.createStatement();
-                ResultSet resultSet = statement.executeQuery(checkUserQuery);
+                String checkUserQuery = "select userid from sql_challenge_users where userid = " + "?";
+                PreparedStatement statement = connection.prepareStatement(checkUserQuery);
+                statement.setString(1, username_reg);
+                ResultSet resultSet = statement.executeQuery();
 
                 if (resultSet.next()) {
                     if (username_reg.contains("tom'")) {
