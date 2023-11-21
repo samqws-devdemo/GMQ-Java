@@ -1,3 +1,5 @@
+package org.owasp.webgoat.sql_injection.mitigation;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -6,6 +8,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClients;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+
 
 public class MendAPILoginExample {
 
